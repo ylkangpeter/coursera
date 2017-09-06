@@ -62,23 +62,58 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+%
+% ******************
+% 
+%     Part1: cost
+%
+% ******************
+%
+X = [ones(m,1) X];
+h1=sigmoid(X*Theta1');
 
+h1 = [ones(size(h1,1),1) h1];
+h2 = sigmoid(h1*Theta2');
 
+tmp=eye(num_labels);
+Y=zeros(m, num_labels);
 
+% y(i) is the label value 1~10 and also the index for 
+% y= 1	 tmp= 1 0 0
+%  	 1 		  0 1 0
+% 	 3		  0 0 1
+% so tmp(y(i),:) extract 100, 100, 001. so a vector transform to matrix
 
+for i=1:m
+	Y(i,:) = tmp(y(i),:);
+end
 
+J=sum(sum(-Y.*log(h2)-(1-Y).*log(1-h2)))/m;
 
+t1=Theta1(:,2:size(Theta1)(2));
+t2=Theta2(:,2:size(Theta2)(2));
+P=(sum(sum(t1.*t1)) + sum(sum(t2.*t2))) * lambda ./ 2 ./ m;
 
+J = J+P;
 
+%
+% ******************
+% 
+%     Part2: gradients
+%
+% ******************
+%
+delta_3 = h2 - Y;
+delta_2 = delta_3*Theta2(:,2:end).*sigmoidGradient(X*Theta1');
 
+delta_2_cap = delta_3'*h1;
+delta_1_cap = delta_2'*X;
 
+Theta1_grad = 1 / m * delta_1_cap + lambda/m * Theta1;
+Theta2_grad = 1 / m * delta_2_cap + lambda/m * Theta2;
 
-
-
-
-
-
-
+Theta1_grad(:,1) -= lambda/m * Theta1(:,1);
+Theta2_grad(:,1) -= lambda/m * Theta2(:,1);
 
 % -------------------------------------------------------------
 
