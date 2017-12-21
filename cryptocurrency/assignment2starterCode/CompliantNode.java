@@ -1,26 +1,47 @@
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
-/* CompliantNode refers to a node that follows the rules (not malicious)*/
 public class CompliantNode implements Node {
 
+
+    private boolean[] followees;
+
+    private Set<Transaction> pendingTransactions;
+
+    private boolean[] blackList;
+
     public CompliantNode(double p_graph, double p_malicious, double p_txDistribution, int numRounds) {
-        // IMPLEMENT THIS
+        // WHAT ??????!!!!!!
     }
 
     public void setFollowees(boolean[] followees) {
-        // IMPLEMENT THIS
+        this.followees = followees;
+        this.blackList = new boolean[followees.length];
     }
 
     public void setPendingTransaction(Set<Transaction> pendingTransactions) {
-        // IMPLEMENT THIS
+        this.pendingTransactions = pendingTransactions;
     }
 
     public Set<Transaction> sendToFollowers() {
-        // IMPLEMENT THIS
+        Set<Transaction> toSend = new HashSet<>(pendingTransactions);
+        pendingTransactions.clear();
+        return toSend;
     }
 
     public void receiveFromFollowees(Set<Candidate> candidates) {
-        // IMPLEMENT THIS
+        Set<Integer> senders = new HashSet();
+        for (Candidate c : candidates) {
+            senders.add(c.sender);
+        }
+        for (int i = 0; i < followees.length; i++) {
+            if (followees[i] && !senders.contains(i))
+                blackList[i] = true;
+        }
+        for (Candidate c : candidates) {
+            if (!blackList[c.sender]) {
+                pendingTransactions.add(c.tx);
+            }
+        }
     }
 }
