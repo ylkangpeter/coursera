@@ -18,8 +18,10 @@ public class Board {
         for (int i = 0; i < blocks.length; i++) {
             for (int j = 0; j < blocks[0].length; j++) {
                 this.blocks[i][j] = blocks[i][j];
-
-                int distance = Math.abs((i * blocks.length + j + 1) % (blocks.length * blocks[0].length) - blocks[i][j]);
+                if (blocks[i][j] == 0) {
+                    continue;
+                }
+                int distance = Math.abs((blocks[i][j] - 1) / blocks.length - i) + Math.abs((blocks[i][j] - 1) % blocks.length - j);
                 if (distance != 0) {
                     hamming++;
                     manhattan += distance;
@@ -84,7 +86,7 @@ public class Board {
 
     // all neighboring boards
     public Iterable<Board> neighbors() {
-        java.util.List<Board> list = new java.util.ArrayList<>();
+        java.util.List<Board> list = new java.util.ArrayList<Board>();
         int row = 0;
         int col = 0;
         boolean isFound = false;
@@ -146,10 +148,10 @@ public class Board {
     // string representation of this board (in the output format specified below)
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append(dimension() + "\n");
         for (int i = 0; i < blocks.length; i++) {
-            sb.append(" ");
             for (int j = 0; j < blocks[i].length; j++) {
-                sb.append(" ").append(blocks[i][j]).append(" ");
+                sb.append("\t").append(blocks[i][j]).append("\t");
             }
             sb.append("\n");
         }
@@ -200,7 +202,7 @@ public class Board {
             System.out.println("---");
         }
 
-        blocks = new int[][]{{6, 1, 3}, {5, 0, 4}, {7, 8, 2}};
+        blocks = new int[][]{{0, 2, 3}, {4, 5, 6}, {7, 8, 1}};
         board = new Board(blocks);
         System.out.println("origin:\n" + board.toString());
         System.out.println("==============");

@@ -32,7 +32,7 @@ public class FastCollinearPoints {
             }
         }
 
-        List<Point[]> list = new ArrayList<>();
+        List<Point[]> list = new ArrayList<Point[]>();
 
 
         for (int i = 0; i < pp.length; i++) {

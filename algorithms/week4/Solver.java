@@ -22,21 +22,32 @@ public class Solver {
         }
         MinPQ<Node> queue = new MinPQ<Node>((o1, o2) -> {
             int priority = o1.getBoard().manhattan() + o1.step - o2.getBoard().manhattan() - o2.step;
-//            if (priority != 0) {
             return priority;
-//            }
-//            return o1.step - o2.step;
         });
+        MinPQ<Node> twinQueue = new MinPQ<Node>((o1, o2) -> {
+            int priority = o1.getBoard().manhattan() + o1.step - o2.getBoard().manhattan() - o2.step;
+            return priority;
+        });
+
         queue.insert(new Node(initial, null));
+        twinQueue.insert(new Node(initial.twin(), null));
 
-        java.util.Set<String> history = new java.util.HashSet<String>();
-        history.add(initial.toString());
+        while (true) {
+            Node twinNode = twinQueue.delMin();
+            Board twinBoard = twinNode.getBoard();
+            Iterable<Board> twinIter = twinBoard.neighbors();
+            for (Board bs : twinIter) {
+                if (bs.manhattan() == 0) {
+                    isSolvable = false;
+                    return;
+                } else if (twinNode.getPrevious() == null || !bs.equals(twinNode.getPrevious().getBoard())) {
+                    twinQueue.insert(new Node(bs, twinNode));
+                }
+            }
 
-        while (!queue.isEmpty()) {
             Node node = queue.delMin();
             Board board = node.getBoard();
             Iterable<Board> iter = board.neighbors();
-            Board bb = null;
             for (Board bs : iter) {
                 if (bs.manhattan() == 0) {
                     Node resultNode = new Node(bs, node);
@@ -50,11 +61,12 @@ public class Solver {
                     solution = list;
                     isSolvable = true;
                     return;
-                } else if (!history.contains(bs.toString())) {
+                } else if (node.getPrevious() == null || !bs.equals(node.getPrevious().getBoard())) {
                     queue.insert(new Node(bs, node));
-                    history.add(bs.toString());
                 }
             }
+
+
         }
     }
 
@@ -117,8 +129,10 @@ public class Solver {
 
     // solve a slider puzzle (given below)
     public static void main(String[] args) {
-        int[][] blocks = {{1, 0, 2}, {7, 5, 4}, {8, 6, 3}};
+        int[][] blocks = {{5, 1, 8}, {2, 7, 3}, {4, 0, 6}};
         Board board = new Board(blocks);
+        System.out.println("hamming: " + board.hamming());
+        System.out.println("manhattan: " + board.manhattan());
         Solver solver = new Solver(board);
         System.out.println("moves:\t" + solver.moves());
         System.out.println("isSolvable:\t" + solver.isSolvable());
