@@ -18,10 +18,11 @@ public class Board {
         for (int i = 0; i < blocks.length; i++) {
             for (int j = 0; j < blocks[0].length; j++) {
                 this.blocks[i][j] = blocks[i][j];
-                int distance = Math.abs(i * blocks.length + j - 1 - blocks[i][j]);
+
+                int distance = Math.abs((i * blocks.length + j + 1) % (blocks.length * blocks[0].length) - blocks[i][j]);
                 if (distance != 0) {
                     hamming++;
-                    manhattan = distance;
+                    manhattan += distance;
                 }
             }
         }
@@ -60,7 +61,7 @@ public class Board {
                     if (firstInx < 0) {
                         firstInx = i * blocks.length + j;
                     } else if (secondInx < 0) {
-                        firstInx = i * blocks.length + j;
+                        secondInx = i * blocks.length + j;
                     }
                 }
             }
@@ -84,9 +85,62 @@ public class Board {
     // all neighboring boards
     public Iterable<Board> neighbors() {
         java.util.List<Board> list = new java.util.ArrayList<>();
+        int row = 0;
+        int col = 0;
+        boolean isFound = false;
+        for (int i = 0; i < blocks.length && !isFound; i++) {
+            for (int j = 0; j < blocks[i].length; j++) {
+                if (blocks[i][j] == 0) {
+                    row = i;
+                    col = j;
+                    break;
+                }
+            }
+        }
 
+        // left -> right
+        if (col != 0) {
+            int[][] copyArray = copyArray(blocks);
+            copyArray[row][col] = copyArray[row][col - 1];
+            copyArray[row][col - 1] = 0;
+            Board board = new Board(copyArray);
+            list.add(board);
+        }
+        // right -> left
+        if (col != blocks[0].length - 1) {
+            int[][] copyArray = copyArray(blocks);
+            copyArray[row][col] = copyArray[row][col + 1];
+            copyArray[row][col + 1] = 0;
+            Board board = new Board(copyArray);
+            list.add(board);
+        }
+        // down -> up
+        if (row != 0) {
+            int[][] copyArray = copyArray(blocks);
+            copyArray[row][col] = copyArray[row - 1][col];
+            copyArray[row - 1][col] = 0;
+            Board board = new Board(copyArray);
+            list.add(board);
+        }
+        // up -> down
+        if (row != blocks.length - 1) {
+            int[][] copyArray = copyArray(blocks);
+            copyArray[row][col] = copyArray[row + 1][col];
+            copyArray[row + 1][col] = 0;
+            Board board = new Board(copyArray);
+            list.add(board);
+        }
         return list;
+    }
 
+    private int[][] copyArray(int[][] array) {
+        int[][] newArray = new int[array.length][array[0].length];
+        for (int i = 0; i < blocks.length; i++) {
+            for (int j = 0; j < blocks[i].length; j++) {
+                newArray[i][j] = blocks[i][j];
+            }
+        }
+        return newArray;
     }
 
     // string representation of this board (in the output format specified below)
@@ -104,6 +158,60 @@ public class Board {
 
     // unit tests (not graded)
     public static void main(String[] args) {
+        int[][] blocks = {{2, 1, 3}, {6, 5, 4}, {7, 8, 0}};
+        Board board = new Board(blocks);
+        System.out.println("origin:\n" + board.toString());
+        System.out.println("==============");
+        System.out.println("manhattan:\t" + board.manhattan());
+        System.out.println("hamming:\t" + board.hamming());
+        System.out.println("==============");
+        System.out.println("twin:\n" + board.twin());
+        System.out.println("neighbors:\n");
+        for (Board b1 : board.neighbors()) {
+            System.out.println(b1);
+            System.out.println("---");
+        }
 
+        blocks = new int[][]{{0, 1, 3}, {6, 5, 4}, {7, 8, 2}};
+        board = new Board(blocks);
+        System.out.println("origin:\n" + board.toString());
+        System.out.println("==============");
+        System.out.println("manhattan:\t" + board.manhattan());
+        System.out.println("hamming:\t" + board.hamming());
+        System.out.println("==============");
+        System.out.println("twin:\n" + board.twin());
+        System.out.println("neighbors:\n");
+        for (Board b1 : board.neighbors()) {
+            System.out.println(b1);
+            System.out.println("---");
+        }
+
+        blocks = new int[][]{{6, 1, 3}, {0, 5, 4}, {7, 8, 2}};
+        board = new Board(blocks);
+        System.out.println("origin:\n" + board.toString());
+        System.out.println("==============");
+        System.out.println("manhattan:\t" + board.manhattan());
+        System.out.println("hamming:\t" + board.hamming());
+        System.out.println("==============");
+        System.out.println("twin:\n" + board.twin());
+        System.out.println("neighbors:\n");
+        for (Board b1 : board.neighbors()) {
+            System.out.println(b1);
+            System.out.println("---");
+        }
+
+        blocks = new int[][]{{6, 1, 3}, {5, 0, 4}, {7, 8, 2}};
+        board = new Board(blocks);
+        System.out.println("origin:\n" + board.toString());
+        System.out.println("==============");
+        System.out.println("manhattan:\t" + board.manhattan());
+        System.out.println("hamming:\t" + board.hamming());
+        System.out.println("==============");
+        System.out.println("twin:\n" + board.twin());
+        System.out.println("neighbors:\n");
+        for (Board b1 : board.neighbors()) {
+            System.out.println(b1);
+            System.out.println("---");
+        }
     }
 }

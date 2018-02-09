@@ -25,16 +25,21 @@
  *
  ******************************************************************************/
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdOut;
-
 public class PuzzleChecker {
 
     public static void main(String[] args) {
 
+        java.io.File f = new java.io.File("week4/test/");
         // for each command-line argument
-        for (String filename : args) {
+        String[] filenames = f.list(new java.io.FilenameFilter() {
+            @Override
+            public boolean accept(java.io.File dir, String name) {
+                return name.contains("txt");
+            }
+        });
 
+        java.util.Arrays.sort(filenames);
+        for (String filename : filenames) {
             // read in the board specified in the filename
             edu.princeton.cs.algs4.In in = new edu.princeton.cs.algs4.In(filename);
             int n = in.readInt();
