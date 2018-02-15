@@ -93,7 +93,7 @@ public class RangeSearchVisualizer {
                 p.draw();
 
             StdDraw.show();
-            StdDraw.pause(20);
+            StdDraw.pause(200);
         }
     }
 }

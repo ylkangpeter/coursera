@@ -1,8 +1,9 @@
+import java.util.List;
+
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.StdDraw;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class PointSET {
@@ -52,7 +53,7 @@ public class PointSET {
         if (rect == null) {
             throw new IllegalArgumentException();
         }
-        Set<Point2D> result = new HashSet<Point2D>();
+        List<Point2D> result = new ArrayList<Point2D>();
         for (Point2D point : set) {
             if (rect.contains(point)) {
                 result.add(point);
@@ -77,8 +78,6 @@ public class PointSET {
         }
         return pp;
     }
-
-}
 
     // unit testing of the methods (optional)
     public static void main(String[] args) {
