@@ -6,6 +6,9 @@ public class SeamCarver {
 
     private Picture picture;
 
+    private double[][] energyTo;
+    private int[][] xTo;
+
     // create a seam carver object based on the given picture
     public SeamCarver(Picture picture) {
         validateSeam(picture);
@@ -29,35 +32,116 @@ public class SeamCarver {
 
     // energy of pixel at column x and row y
     public double energy(int x, int y) {
-        validateInt(x, height());
-        validateInt(y, width());
+        validateInt(x, width());
+        validateInt(y, height());
         if (x < 0 || y < 0 || x >= this.picture.width() || y >= this.picture.height()) {
             throw new IllegalArgumentException();
         }
-        if (x == 0 || y == 0 || x == this.picture.width() || y == this.picture.height()) {
+        if (x == 0 || y == 0 || x == this.picture.width() - 1 || y == this.picture.height() - 1) {
             return 1000;
         }
 
-        int[] color_x_pre = getRGB(x - 1, y);
-        int[] color_x_next = getRGB(x + 1, y);
-        int xG = calc(color_x_pre, color_x_next);
+        int[] colorXPre = getRGB(x - 1, y);
+        int[] colorXNext = getRGB(x + 1, y);
+        int xG = calc(colorXPre, colorXNext);
 
-        int[] color_y_pre = getRGB(x, y - 1);
-        int[] color_y_next = getRGB(x, y + 1);
-        int yG = calc(color_y_pre, color_y_next);
+        int[] colorYPre = getRGB(x, y - 1);
+        int[] colorYNext = getRGB(x, y + 1);
+        int yG = calc(colorYPre, colorYNext);
 
         return Math.sqrt(xG + yG);
     }
 
     // sequence of indices for horizontal seam
     public int[] findHorizontalSeam() {
-        return null;
+        // Transpose picture.
+        Picture original = picture;
+        Picture transpose = new Picture(original.height(), original.width());
+
+        for (int w = 0; w < transpose.width(); w++) {
+            for (int h = 0; h < transpose.height(); h++) {
+                transpose.set(w, h, original.get(h, w));
+            }
+        }
+
+        this.picture = transpose;
+
+        // call findVerticalSeam
+        int[] seam = findVerticalSeam();
+
+        // Transpose back.
+        this.picture = original;
+
+        return seam;
     }
 
     // sequence of indices for vertical seam
     public int[] findVerticalSeam() {
-        return null;
+        energyTo = new double[width()][height()];
+        xTo = new int[width()][height()];
+
+        for (int x = 0; x < width(); x++) {
+            for (int y = 0; y < height(); y++) {
+                energyTo[x][y] = Double.POSITIVE_INFINITY;
+            }
+        }
+
+        for (int x = 0; x < width(); x++) {
+            energyTo[x][0] = 195075;
+        }
+
+        for (int y = 0; y < height() - 1; y++) {
+            for (int x = 0; x < width(); x++) {
+                if (x > 0) {
+                    relax(x, y, x - 1, y + 1);
+                }
+
+                relax(x, y, x, y + 1);
+
+                if (x < width() - 1) {
+                    relax(x, y, x + 1, y + 1);
+                }
+            }
+        }
+
+        // find minimum energy path
+        double minEnergy = Double.POSITIVE_INFINITY;
+        int minEnergyX = -1;
+        for (int w = 0; w < width(); w++) {
+            if (energyTo[w][height() - 1] < minEnergy) {
+                minEnergyX = w;
+                minEnergy = energyTo[w][height() - 1];
+            }
+        }
+        assert minEnergyX != -1;
+
+        int[] seam = new int[height()];
+        seam[height() - 1] = minEnergyX;
+        int prevX = xTo[minEnergyX][height() - 1];
+
+        for (int h = height() - 2; h >= 0; h--) {
+            seam[h] = prevX;
+            prevX = xTo[prevX][h];
+        }
+
+        return seam;
     }
+
+    private void relax(int x1, int y1, int x2, int y2) {
+        if (energyTo[x2][y2] > energyTo[x1][y1] + energy(x2, y2)) {
+            energyTo[x2][y2] = energyTo[x1][y1] + energy(x2, y2);
+            xTo[x2][y2] = x1;
+        }
+    }
+//    // sequence of indices for horizontal seam
+//    public int[] findHorizontalSeam() {
+//        return null;
+//    }
+
+//    // sequence of indices for vertical seam
+//    public int[] findVerticalSeam() {
+//        return null;
+//    }
 
     // remove horizontal seam from current picture
     public void removeHorizontalSeam(int[] seam) {
@@ -68,7 +152,7 @@ public class SeamCarver {
         Picture newPicture = new Picture(this.picture.width(), this.picture.height() - 1);
 
         for (int col = 0; col < picture.width(); col++) {
-            if (col > 0 && Math.abs(seam[col] - seam[col - 1]) > 1) {
+            if (seam[col] < 0 || seam[col] > picture.height() || (col > 0 && Math.abs(seam[col] - seam[col - 1]) > 1)) {
                 throw new IllegalArgumentException();
             }
 
@@ -92,13 +176,13 @@ public class SeamCarver {
         }
         Picture newPicture = new Picture(this.picture.width() - 1, this.picture.height());
 
-        for (int row = 0; row < picture.width(); row++) {
-            if (row > 0 && Math.abs(seam[row] - seam[row - 1]) != 1) {
+        for (int row = 0; row < picture.height(); row++) {
+            if (seam[row] < 0 || seam[row] > picture.width() || (row > 0 && Math.abs(seam[row] - seam[row - 1]) > 1)) {
                 throw new IllegalArgumentException();
             }
 
             int colInx = 0;
-            for (int col = 0; col < picture.height(); col++) {
+            for (int col = 0; col < picture.width(); col++) {
                 if (col != seam[row]) {
                     newPicture.set(colInx++, row, this.picture.get(col, row));
                 }
@@ -114,8 +198,8 @@ public class SeamCarver {
         }
     }
 
-    private void validateSeam(Object o) {
-        if (o == null) {
+    private void validateSeam(Object obj) {
+        if (obj == null) {
             throw new IllegalArgumentException();
         }
     }
@@ -160,7 +244,7 @@ public class SeamCarver {
         System.out.println(sc.energy(1, 1));
         System.out.println(sc.energy(1, 2));
 
-        //
+
         picture = new Picture("bin/production/algorithms/seam/diagonals.png");
         sc = new SeamCarver(picture);
         sc.removeHorizontalSeam(new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0});
