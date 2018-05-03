@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/AppTheme"
+    app:popupTheme="@style/AppTheme">
+
+    <item
+        android:id="@+id/title_menu_item"
+        android:title=""
+        app:showAsAction="ifRoom|withText">
+
+
+    </item>
+
+    <item
+        android:id="@+id/detail_menu_item_secondary"
+        android:title="@string/show_information" />
+
+</menu>
