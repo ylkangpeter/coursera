@@ -1,0 +1,7 @@
+#Internal package file, do not edit.
+#Fri May 04 14:46:16 CST 2018
+0.baseType=DIRECTORY
+0.base=/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Notifications/app/build/intermediates/transforms/dexMerger/debug/44
+0.path=classes.dex
+0.set=DEX
+count=1

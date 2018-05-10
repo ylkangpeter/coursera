@@ -1,0 +1,13 @@
+#Tue May 08 16:31:03 CST 2018
+path.3=classes.dex
+path.2=classes.dex
+path.1=classes.dex
+path.0=classes.dex
+renamed.3=classes4.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+base.3=/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Lab7_GraphicsLab/app/build/intermediates/transforms/dexMerger/debug/29
+base.2=/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Lab7_GraphicsLab/app/build/intermediates/transforms/dexMerger/debug/30
+base.1=/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Lab7_GraphicsLab/app/build/intermediates/transforms/dexMerger/debug/31
+base.0=/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Lab7_GraphicsLab/app/build/intermediates/transforms/dexMerger/debug/28

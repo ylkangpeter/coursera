@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Lab7_GraphicsLab/app/build/intermediates/res/merged/debug/values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Lab7_GraphicsLab/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "2,6,5,4,3",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,303,232,161,104",
+                        "endColumns": "48,44,70,70,56",
+                        "endOffsets": "99,343,298,227,156"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,104,149,220,291",
+                        "endColumns": "48,44,70,70,56",
+                        "endOffsets": "99,144,215,286,343"
+                    }
+                }
+            ]
+        }
+    ]
+}

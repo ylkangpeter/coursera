@@ -1,0 +1,7 @@
+#Internal package file, do not edit.
+#Tue May 08 16:18:16 CST 2018
+0.baseType=DIRECTORY
+0.base=/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Lab7_GraphicsLab/app/build/intermediates/transforms/dexMerger/androidTest/debug/0
+0.path=classes.dex
+0.set=DEX
+count=1

@@ -1,0 +1,4 @@
+#Tue May 08 16:31:02 CST 2018
+base.0=/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Lab7_GraphicsLab/app/build/intermediates/transforms/dexMerger/debug/24
+path.0=classes.dex
+renamed.0=classes.dex

@@ -1,0 +1,4 @@
+#Fri May 04 14:44:57 CST 2018
+base.0=/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Notifications/app/build/intermediates/transforms/dexMerger/debug/37
+path.0=classes.dex
+renamed.0=classes.dex

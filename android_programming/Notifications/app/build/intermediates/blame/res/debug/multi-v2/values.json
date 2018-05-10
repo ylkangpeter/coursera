@@ -1,0 +1,62 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Notifications/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "map": [
+                {
+                    "source": "/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Notifications/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "8,3,9,11,10,7,6,12,5,4",
+                        "startColumns": "4,4,4,4,4,4,4,1,4,4",
+                        "startOffsets": "377,56,424,600,516,317,257,685,189,110",
+                        "endColumns": "46,53,91,87,83,59,59,85,67,78",
+                        "endOffsets": "419,105,511,683,595,372,312,769,252,184"
+                    },
+                    "to": {
+                        "startLines": "5,6,7,8,9,10,11,12,13,14",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "211,258,312,404,492,576,636,696,785,853",
+                        "endColumns": "46,53,91,87,83,59,59,88,67,78",
+                        "endOffsets": "253,307,399,487,571,631,691,780,848,927"
+                    }
+                },
+                {
+                    "source": "/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Notifications/app/src/main/res/values/styles.xml",
+                    "from": {
+                        "startLines": "6,15",
+                        "startColumns": "4,4",
+                        "startOffsets": "186,510",
+                        "endLines": "12,17",
+                        "endColumns": "12,12",
+                        "endOffsets": "472,665"
+                    },
+                    "to": {
+                        "startLines": "15,22",
+                        "startColumns": "4,4",
+                        "startOffsets": "932,1223",
+                        "endLines": "21,24",
+                        "endColumns": "12,12",
+                        "endOffsets": "1218,1378"
+                    }
+                },
+                {
+                    "source": "/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Notifications/app/src/main/res/values/dimens.xml",
+                    "from": {
+                        "startLines": "3,4,5",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "89,147,203",
+                        "endColumns": "57,55,41",
+                        "endOffsets": "142,198,240"
+                    },
+                    "to": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,113,169",
+                        "endColumns": "57,55,41",
+                        "endOffsets": "108,164,206"
+                    }
+                }
+            ]
+        }
+    ]
+}
