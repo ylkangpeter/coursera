@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="GalleryActivity"><attr name="android:galleryItemBackground"/></declare-styleable>
+    <string name="app_name">UIGallery</string>
+</resources>

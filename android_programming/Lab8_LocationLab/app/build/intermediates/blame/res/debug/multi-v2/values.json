@@ -1,0 +1,45 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Lab8_LocationLab/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "map": [
+                {
+                    "source": "/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Lab8_LocationLab/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "3,12,5,13,14,4,10,9,7,6,8,11",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "56,580,159,629,720,105,442,359,249,201,311,515",
+                        "endColumns": "48,48,41,90,61,53,72,82,61,47,47,64",
+                        "endOffsets": "100,624,196,715,777,154,510,437,306,244,354,575"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,104,153,195,286,348,402,475,558,620,668,716",
+                        "endColumns": "48,48,41,90,61,53,72,82,61,47,47,64",
+                        "endOffsets": "99,148,190,281,343,397,470,553,615,663,711,776"
+                    }
+                },
+                {
+                    "source": "/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/Lab8_LocationLab/app/src/main/res/values/styles.xml",
+                    "from": {
+                        "startLines": "6,15",
+                        "startColumns": "4,4",
+                        "startOffsets": "186,510",
+                        "endLines": "12,17",
+                        "endColumns": "12,12",
+                        "endOffsets": "472,665"
+                    },
+                    "to": {
+                        "startLines": "14,21",
+                        "startColumns": "4,4",
+                        "startOffsets": "781,1072",
+                        "endLines": "20,23",
+                        "endColumns": "12,12",
+                        "endOffsets": "1067,1227"
+                    }
+                }
+            ]
+        }
+    ]
+}

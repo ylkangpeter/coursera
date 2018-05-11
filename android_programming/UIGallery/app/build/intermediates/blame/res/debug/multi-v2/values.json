@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/UIGallery/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "map": [
+                {
+                    "source": "/Users/kangyongliang262/work_dir/code_base/3rd/coursera/android_programming/UIGallery/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "46",
+                        "endOffsets": "97"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "166",
+                        "endColumns": "46",
+                        "endOffsets": "208"
+                    }
+                }
+            ]
+        }
+    ]
+}
