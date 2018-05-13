@@ -2,13 +2,16 @@ package com.peter.selfie;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -19,6 +22,8 @@ public class PhotoListAdapter extends ArrayAdapter<PhotoListAdapter.RowObj> {
 
     private final Activity context;
     private final LayoutInflater inflater;
+    private boolean isImageFitToScreen = false;
+
 
     public PhotoListAdapter(@NonNull Context context, int textViewResourceId, @NonNull List<RowObj> objects) {
         super(context, textViewResourceId, objects);
@@ -29,8 +34,23 @@ public class PhotoListAdapter extends ArrayAdapter<PhotoListAdapter.RowObj> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = inflater.inflate(R.layout.photo_list, null);
-        ImageView imageView = view.findViewById(R.id.item_icon);
-        imageView.setImageURI(getItem(position).img);
+        final ImageView imageView = view.findViewById(R.id.item_icon);
+        final Uri uri = getItem(position).img;
+        imageView.setImageURI(uri);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent fullScreenIntent = new Intent(getContext(), FullImageActivity.class);
+                fullScreenIntent.setData(uri);
+                getContext().startActivity(fullScreenIntent);
+            }
+        });
+//        view.setOnContextClickListener(new View.OnCreateContextMenuListener() {
+//            @Override
+//            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//
+//            }
+//        });
         TextView textView = view.findViewById(R.id.item_name);
         textView.setText(getItem(position).name);
         return view;
